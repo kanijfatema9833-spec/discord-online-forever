@@ -36,9 +36,11 @@ tokens.forEach((token, index) => {
   const client = new Client({ checkUpdate: false });
 
   client.on('ready', () => {
+    // আগে থেকে থাকা স্ট্যাটাস (DND, Idle, Online) ডিফল্টভাবেই বজায় থাকবে
+    const currentStatus = client.user.presence?.status || 'unknown';
+    
     console.log(`[SUCCESS] Account ${index + 1} logged in as ${client.user.username}`);
-    // অ্যাকাউন্ট সবসময় অনলাইন রাখার জন্য স্ট্যাটাস সেট করা
-    client.user.setStatus('online'); 
+    console.log(`[STATUS] Status for ${client.user.username} is kept as: ${currentStatus}`);
   });
 
   client.login(token).catch(err => {
